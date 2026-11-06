@@ -1,0 +1,29 @@
+services:
+  emulator:
+    image: python:3.12-slim
+    command: ["python", "-u", "/app/dps_hub_emulator.py"]
+    restart: unless-stopped
+    ports:
+      - "8883:8883"
+    environment:
+      EMU_HUB_HOST: ${EMU_HUB_HOST:?set EMU_HUB_HOST in .env}
+      DATA_DIR: /data
+    volumes:
+      - ./emulator:/app:ro
+      - ./data:/data
+
+  bridge:
+    image: python:3.12-slim
+    command: ["python", "-u", "/app/bridge.py"]
+    restart: unless-stopped
+    depends_on:
+      - emulator
+    environment:
+      ST_DEVICE_ID: ${ST_DEVICE_ID:-}
+      ST_CLIENT_ID: ${ST_CLIENT_ID:-}
+      DATA_DIR: /data
+      CMD_POLL: ${CMD_POLL:-1}
+      TELE_EVERY: ${TELE_EVERY:-10}
+    volumes:
+      - ./bridge:/app:ro
+      - ./data:/data

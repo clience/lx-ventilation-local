@@ -1,0 +1,13 @@
+*.pem
+*.key
+st_token*
+st_refresh*
+cmd.json
+cmd.json.tmp
+raw.log*
+telemetry.log*
+data/
+.env
+__pycache__/
+*.pyc
+.DS_Store
