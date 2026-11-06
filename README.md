@@ -1,5 +1,9 @@
 # lx-ventilation-local
 
+![LX 지인(Z:IN) 자동환기 환기창 스마트싱스 로컬 연동](docs/images/banner.png)
+
+**LX하우시스 지인(Z:IN) 스마트 환기창 · 스마트싱스(SmartThings) 연동 · 제조사 앱/클라우드 없이 집 안에서 로컬 제어**
+
 **English summary.** Run an LX Z:IN "자동환기" window ventilator (model `LGH_SMARTVENTIL2021M_G1N`) without the
 manufacturer's cloud. The device talks Azure IoT DPS → IoT Hub over MQTT/TLS and does not validate the server
 certificate, so a tiny self-hosted DPS + IoT Hub emulator can take its place. A bridge mirrors telemetry to a
