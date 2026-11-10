@@ -1,0 +1,7 @@
+name: LX Vent LAN
+packageKey: clience.lxvent.lan
+description: LX ventilation through a self-hosted LAN adapter without runtime SmartThings OAuth
+vendorSupportInformation: https://github.com/clience/lx-ventilation-local
+permissions:
+  lan: {}
+  discovery: {}

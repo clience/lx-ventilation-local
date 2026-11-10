@@ -1,0 +1,70 @@
+name: lxvent-lan
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: bfc0563f-f2d8-3a58-b60e-581395ac6fe3
+components:
+  - id: main
+    label: 환기창
+    capabilities:
+      - id: switch
+        version: 1
+      - id: mode
+        version: 1
+      - id: fanSpeed
+        version: 1
+      - id: rapidCooling
+        version: 1
+      - id: fineDustSensor
+        version: 1
+      - id: temperatureMeasurement
+        version: 1
+      - id: relativeHumidityMeasurement
+        version: 1
+      - id: tvocMeasurement
+        version: 1
+      - id: carbonDioxideMeasurement
+        version: 1
+      - id: filterState
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Fan
+preferences:
+  - name: bridgeHost
+    title: LAN 브리지 IPv4
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: "192.168.0.10"
+  - name: bridgePort
+    title: LAN 브리지 포트
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1024
+      maximum: 65535
+      default: 18765
+  - name: lanKey
+    title: 전용 LAN 키 (ST 토큰 사용 금지)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: password
+      minLength: 32
+      maxLength: 128
+      default: "00000000000000000000000000000000"
+  - name: allowCommands
+    title: 명령 허용
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: deviceId
+    title: LAN 브리지 기기 ID
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: lxvent-main

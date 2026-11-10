@@ -11,3 +11,12 @@ data/
 __pycache__/
 *.pyc
 .DS_Store
+.env.edge
+.edge-secrets/
+edge-state/
+edge/alert-rules.json
+edge/dist/
+st_auth.json
+alerts.json
+lan-key.txt
+tg_token.txt

@@ -1,0 +1,5 @@
+[
+  {"id":"filter","name":"환기창 필터 남은수명","vent":"filterPct","below":2,"rearm":12,"unit":"%","msg":"교체 시기입니다"},
+  {"id":"hex","name":"환기창 열교환 소자 남은수명","vent":"hexPct","below":2,"rearm":12,"unit":"%","msg":"교체 시기입니다"},
+  {"id":"co2_high","name":"환기창 이산화탄소","vent":"co2","above":1000,"rearm":800,"unit":"ppm","msg":"환기하세요"}
+]

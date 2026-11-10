@@ -1,0 +1,67 @@
+# Linux / NAS host networking. This file intentionally excludes the legacy OAuth bridge.
+services:
+  emulator:
+    image: python:3.12-slim
+    command: ["python", "-u", "/app/dps_hub_emulator.py"]
+    restart: unless-stopped
+    ports:
+      - "8883:8883"
+    environment:
+      EMU_HUB_HOST: ${EMU_HUB_HOST:?set EMU_HUB_HOST}
+      DATA_DIR: /data
+    volumes:
+      - ./emulator:/app:ro
+      - ./data:/data
+
+  lan-bridge:
+    image: python:3.12-slim
+    user: "${LXVENT_UID:-1000}:${LXVENT_GID:-1000}"
+    network_mode: host
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+    command: ["python3", "-B", "/app/server.py", "--data-dir", "/data", "--key-file", "/run/lan-key", "--bind", "0.0.0.0", "--port", "${LXVENT_PORT:-18765}"]
+    environment:
+      LXVENT_DEVICE_ID: ${LXVENT_DEVICE_ID:-lxvent-main}
+      LXVENT_ENABLE_COMMANDS: ${LXVENT_ENABLE_COMMANDS:-false}
+      LXVENT_PORT: ${LXVENT_PORT:-18765}
+    volumes:
+      - ./edge/bridge/server.py:/app/server.py:ro
+      - ./data:/data
+      - ./.edge-secrets/lan-key.txt:/run/lan-key:ro
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import os,urllib.request; k=open('/run/lan-key').read().strip(); urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:'+os.environ['LXVENT_PORT']+'/v1/state',headers={'Authorization':'Bearer '+k}),timeout=5).read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: json-file
+      options: {max-size: "1m", max-file: "2"}
+
+  alerts:
+    profiles: [alerts]
+    image: python:3.12-slim
+    user: "${LXVENT_UID:-1000}:${LXVENT_GID:-1000}"
+    network_mode: host
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+    command: ["python3", "-B", "/app/alerts.py", "--data-dir", "/data", "--rules", "/config/rules.json", "--state-file", "/state/alerts.json", "--telegram-token-file", "/run/telegram-key", "--chat-id", "${TG_CHAT_ID:-}", "--health-file", "/state/health.json"]
+    environment:
+      LXVENT_ALERT_SEND: ${LXVENT_ALERT_SEND:-false}
+    volumes:
+      - ./edge/bridge:/app:ro
+      - ./data/raw.log:/data/raw.log:ro
+      - ./edge/alert-rules.json:/config/rules.json:ro
+      - ./.edge-secrets/telegram-token.txt:/run/telegram-key:ro
+      - ./edge-state:/state
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import json,time; d=json.load(open('/state/health.json')); assert time.time()-d['checked_at']<45 and d['source_online']"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options: {max-size: "1m", max-file: "2"}
