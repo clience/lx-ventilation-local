@@ -1,0 +1,16 @@
+README.md
+  h_2c8a802f69fda7 50-53
+edge/README.md
+  h_2c8a802f69fda7 58,60-70
+---
+{
+  "schema_version": "zax-attestation/1.2.0",
+  "base_commit_sha": "d104ff365f87d12d522e8d9ec2daa8eb05f1be6a",
+  "prompts": {},
+  "humans": {
+    "h_2c8a802f69fda7": {
+      "author": "clience@users.noreply.github.com"
+    }
+  },
+  "attribution_source": "human_fallback"
+}
