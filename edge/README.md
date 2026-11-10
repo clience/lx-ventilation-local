@@ -55,9 +55,19 @@ docker compose --env-file .env.edge -f docker-compose.edge.yml up -d --no-deps l
 
 HTTP 포트는 신뢰하는 LAN에만 노출하세요. 인터넷 포트 포워딩은 하지 않습니다. 데이터 폴더에서 기존 ST 토큰을 새 브리지에 복사하거나, 새 CLI에서 기존 refresh 토큰을 재사용하지 않습니다.
 
-## 2. Edge 드라이버 배포
+## 2. Edge 드라이버 설치 또는 직접 배포
 
-SmartThings CLI는 별도로 로그인합니다. 기존 OAuth 브리지가 소유한 토큰을 가져오지 않습니다. 자신의 채널에 배포하거나, 관리자가 공유한 채널 초대 링크로 설치할 수 있습니다. **이 저장소에는 공개 채널 초대 링크가 아직 없습니다.** GitHub 소스 공개와 SmartThings 채널 공유는 별개입니다.
+[**공개 채널에서 LX Vent LAN 설치**](https://bestow-regional.api.smartthings.com/invite/WnlLoe6d6K2K)
+
+삼성 계정 로그인 → 초대 수락 → 자신의 허브 Enroll → LX Vent LAN Install을 선택합니다.
+설치 후 아래 3단계에서 서버 주소와 LAN 키를 입력하세요. 링크 설치에는 CLI가 필요하지 않습니다.
+에뮬레이터와 LAN 브리지는 1단계대로 별도 준비해야 합니다.
+
+공개 채널 ID: `60720560-39f7-4aa5-9798-c5bf390cc3be`
+공개 드라이버 ID: `b0baf879-8262-4557-b83a-a675738ac87b`
+
+직접 소스를 수정해 배포하려는 경우에만 다음 CLI 절차를 따릅니다.
+SmartThings CLI는 별도로 로그인하며, 기존 OAuth 브리지가 소유한 토큰을 가져오지 않습니다.
 
 ```sh
 smartthings edge:channels:create

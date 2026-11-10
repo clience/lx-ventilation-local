@@ -47,7 +47,10 @@ Edge 드라이버는 허브에서 LAN 브리지에 상태를 조회하고 명령
 - 환기창용 2.4 GHz Wi-Fi, 초기 설정용 Wi-Fi PC
 - 서버 내부 IP로 해석되는 호스트 이름
 
-공개 소스로 직접 채널을 만들어 설치할 수 있습니다. **공개 채널 초대 링크는 아직 없습니다.**
+[**Edge 드라이버 설치 (LX Vent LAN)**](https://bestow-regional.api.smartthings.com/invite/WnlLoe6d6K2K)
+
+링크에서 삼성 계정 로그인 → 초대 수락 → 허브 Enroll → LX Vent LAN Install 순서로 설치합니다.
+서버 준비와 앱 설정은 [Edge 안내](edge/README.md)를 따르세요. 공개 소스로 자신의 채널에 직접 배포할 수도 있습니다.
 드라이버만 설치해서 출고 상태의 환기창에 바로 연결하는 방식은 아닙니다.
 
 ## 설치
